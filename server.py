@@ -1,6 +1,6 @@
 from wls import WLS
 from core import CORE
-from globals import *
+import cfg
 from member import member
 
 
@@ -16,10 +16,10 @@ class server():
         for rate in self.rates:
             self.cores.append(CORE(rate))
 
-    def __get_idxTime2Work(self, cores, idx):
+    def __get_idxRemainingTime(self, cores, idx):
         if cores[idx].isIdle():
             return (idx, 0)
-        tmp_min = cores[idx].current_member.time_to_work
+        tmp_min = cores[idx].current_member.remaining_time_to_work()
         Min = (idx, tmp_min)
         return Min
 
@@ -28,8 +28,8 @@ class server():
 
     def time_to_idle(self):
         cores = self.cores
-        idxTimeLs = [self.__get_idxTime2Work(cores, 0), self.__get_idxTime2Work(
-            cores, 1), self.__get_idxTime2Work(cores, 2)]
+        idxTimeLs = [self.__get_idxRemainingTime(cores, 0), self.__get_idxRemainingTime(
+            cores, 1), self.__get_idxRemainingTime(cores, 2)]
         idxTimeLs.sort(key=lambda x: x[1])
         return idxTimeLs
 
@@ -38,11 +38,10 @@ class server():
         return list(filter(lambda x: x[1] != 0, idxTimeLs))
 
     def run_server(self):
-        global current_time
         idxTimeLs = self.time_to_idle()
         idx, Time = idxTimeLs[0]
         if Time > 0:
-            current_time += Time
+            cfg.current_time += Time
             self.cores[idx].end_work()
         elif Time == 0:
             member = self.queue.leave()
@@ -52,10 +51,10 @@ class server():
                 # idle core and is_empty wls
                 try:
                     idx, Time = self.time_to_idle_0Excluding()[0]
-                    current_time += Time
+                    cfg.current_time += Time
                     self.cores[idx].end_work()
                 except:
-                    if log:
+                    if cfg.log:
                         print("Failed to run Server!!")
                     pass
 
@@ -63,7 +62,7 @@ class server():
 if __name__ == "__main__":
     import random
     s = server([1, 1, 1], 1)
-    members = [member(0.1, random.choice([1, 2, 2, 2, 2])) for _ in range(3)]
+    members = [member(40, random.choice([1, 2, 2, 2, 2])) for _ in range(5)]
     for mem in members:
         s.arrive(mem)
     while True:

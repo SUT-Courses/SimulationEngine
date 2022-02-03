@@ -1,4 +1,4 @@
-def my_gen():
+def MY_GEN():
     n = 0
     while True:
         n += 1
@@ -6,6 +6,6 @@ def my_gen():
 
 
 current_time = 0
-MY_GEN = my_gen()
+MY_GEN = MY_GEN()
 NotValuedYet = -1
 log = True
