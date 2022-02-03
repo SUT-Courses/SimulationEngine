@@ -37,8 +37,8 @@ class member():
             self.set_status(STATUS.DEAD)
             return False
 
-        if cfg.log:
-            print(f"begin_work ==> {self.status}")
+        # if cfg.log:
+        #     print(f"begin_work ==> {self.status}")
         self.set_status(self.status + 1)
         self.time_to_work = time_to_work
         return True
@@ -70,14 +70,15 @@ class member():
 
     def time_from_begin_of_last_status(self):
         if cfg.log:
-            print(
-                f"Time from begin of last status ==> CT {cfg.current_time} || {self.time_status[self.status]}")
+            # print(
+            # f"Time from begin of last status ==> CT {cfg.current_time} || {self.time_status[self.status]}")
+            pass
         return cfg.current_time - self.time_status[self.status]
 
     def remaining_time_to_work(self):
         if cfg.log:
             print(
-                f"Remaining time to work ==> {self.time_to_work} - {self.time_from_begin_of_last_status()}")
+                f"Remaining time to work {self._id} ==> {self.time_to_work} - {self.time_from_begin_of_last_status()}")
         return self.time_to_work - self.time_from_begin_of_last_status()
 
 

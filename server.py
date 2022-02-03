@@ -66,4 +66,6 @@ if __name__ == "__main__":
     for mem in members:
         s.arrive(mem)
     while True:
+        if cfg.log:
+            print("\n\n")
         s.run_server()
