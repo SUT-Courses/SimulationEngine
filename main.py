@@ -9,15 +9,24 @@ member_arrival_time = 0
 mmbrls = []
 s = []
 
-default_input = [[1, cfg.INF, 1]]
+default_input = [[cfg.lmbda, cfg.alpha, cfg.mio]]
 default_input.extend(
-    [[0.02, 0.02, 0.02] for _ in range(cfg.SERV_COUNT)])
+    [[1/15, 2/15, 1/15] for _ in range(cfg.SERV_COUNT)])
 
 if not cfg.DEFAULT_INPUT:
     cfg.lmbda, cfg.alpha, cfg.mio = list(map(float, input().split()))
+    if cfg.IN_MEAN:
+        cfg.lmbda = 1 / cfg.lmbda
+        cfg.mio = 1 / cfg.mio
 
     for i in range(1, cfg.SERV_COUNT+1):
-        core1_rate, core2_rate, core3_rate = list(map(float, input().split()))
+        if not cfg.IN_MEAN:
+            core1_rate, core2_rate, core3_rate = list(
+                map(float, input().split()))
+        else:
+            core1_rate, core2_rate, core3_rate = list(
+                map(lambda x: 1/float(x), input().split()))
+
         stmp = server([core1_rate, core2_rate, core3_rate], i)
         s.append(stmp)
 else:
@@ -113,8 +122,8 @@ while run():
         print("\nT:{:5.5f}".format(cfg.current_time) + "============="*6)
     pass
 
-for mmbr in mmbrls:
-    print(mmbr)
+# for mmbr in mmbrls:
+#     print(mmbr)
 
 
 alive_only_mmbrls = list(filter(lambda mm: not mm.isDead, mmbrls))

@@ -5,16 +5,17 @@ def MY_GEN():
         yield n
 
 
-DEFAULT_INPUT = True
-TRACE = True
-LOGS_FINAL = False
+IN_MEAN = True
+DEFAULT_INPUT = False
+TRACE = False
+LOGS_FINAL = True
 LOG = False
+SERV_COUNT = 5
+MEM_COUNT = 1_000_000
 current_time = 0
 MY_GEN = MY_GEN()
 NotValuedYet = -1
-mio = 1
-alpha = 1000
-lmbda = 1
-SERV_COUNT = 1
+mio = -1
+alpha = -1
+lmbda = -1
 INF = 1e10
-MEM_COUNT = 2
