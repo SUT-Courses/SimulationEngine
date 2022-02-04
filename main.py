@@ -3,17 +3,32 @@ from server import server
 from scheduler import scheduler
 from member import member
 
+################# initialization #################
 member_arrival_time = 0
 mmbrls = []
+s: list[server] = []
 
-s1 = server([1, 1, 1], 1)
-s2 = server([2, 2, 2], 2)
-s3 = server([3, 3, 3], 3)
-s4 = server([4, 4, 4], 4)
-s5 = server([5, 5, 5], 5)
-s: list[server] = [s1, s2, s3, s4, s5]
+default_input = [[1, 1000, 1], [1, 1, 1], [
+    2, 2, 2], [3, 3, 3], [4, 4, 4], [5, 5, 5]]
+
+if not cfg.DEFAULT_INPUT:
+    cfg.lmbda, cfg.alpha, cfg.mio = list(map(float, input().split()))
+
+    for i in range(1, 6):
+        core1_rate, core2_rate, core3_rate = list(map(float, input().split()))
+        stmp = server([core1_rate, core2_rate, core3_rate], i)
+        s.append(stmp)
+else:
+    cfg.lmbda, cfg.alpha, cfg.mio = default_input[0]
+
+    for i in range(1, 6):
+        core1_rate, core2_rate, core3_rate = default_input[i]
+        stmp = server([core1_rate, core2_rate, core3_rate], i)
+        s.append(stmp)
+
 sch = scheduler(1, s)
-member_count = 10
+member_count = 1e6
+#########################################
 
 
 def do_arrive_member():
@@ -86,8 +101,10 @@ def run():
     return True
 
 
+################# MAIN  #################
 while run():
-    print(f"T:{cfg.current_time}" + " ========="*6+"\n")
+    if cfg.log:
+        print(f"T:{cfg.current_time}" + " ========="*6+"\n")
     pass
 
 for mmbr in mmbrls:
