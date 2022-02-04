@@ -16,6 +16,9 @@ class server():
         for rate in self.rates:
             self.cores.append(CORE(rate))
 
+    def get_queue_length(self):
+        return self.queue.get_length()
+
     def __get_idxRemainingTime(self, cores, idx):
         if cores[idx].isIdle():
             return (idx, 0)
@@ -62,9 +65,8 @@ class server():
 
 def test_server():
     s = server([1, 1, 1], 1)
-    members = [member(10, random.choice([1, 2, 2, 2, 2]))
-               for _ in range(5)]
-    for mem in members:
+    mems = member.generate_members(5)
+    for mem in mems:
         s.arrive(mem)
     while True:
         if cfg.log:

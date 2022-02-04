@@ -1,4 +1,5 @@
 import cfg
+import random
 
 
 class STATUS:
@@ -20,6 +21,12 @@ class member():
     @staticmethod
     def get_id():
         return next(cfg.MY_GEN)
+
+    @staticmethod
+    def generate_members(n, tl=100):
+        members = [member(tl, random.choice([1, 2, 2, 2, 2]))
+                   for _ in range(n)]
+        return members
 
     def __init_method(self):
         self.time_status = {1: cfg.NotValuedYet, 2: cfg.NotValuedYet, 3: cfg.NotValuedYet,

@@ -25,6 +25,9 @@ class WL():
     def is_empty(self):
         return not self.wl
 
+    def get_length(self):
+        return len(self.wl)
+
 
 class WLS():
     def __init__(self):
@@ -43,3 +46,6 @@ class WLS():
 
     def is_empty(self):
         return self.Line1.is_empty() and self.Line2.is_empty()
+
+    def get_length(self):
+        return self.Line1.get_length() + self.Line2.get_length()
