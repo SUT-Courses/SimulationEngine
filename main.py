@@ -9,27 +9,27 @@ member_arrival_time = 0
 mmbrls = []
 s = []
 
-default_input = [[1, cfg.INF, 1.2]]
+default_input = [[1, cfg.INF, 1]]
 default_input.extend(
-    [[1, 1, 1] for _ in range(5)])
+    [[0.02, 0.02, 0.02] for _ in range(cfg.SERV_COUNT)])
 
 if not cfg.DEFAULT_INPUT:
     cfg.lmbda, cfg.alpha, cfg.mio = list(map(float, input().split()))
 
-    for i in range(1, 6):
+    for i in range(1, cfg.SERV_COUNT+1):
         core1_rate, core2_rate, core3_rate = list(map(float, input().split()))
         stmp = server([core1_rate, core2_rate, core3_rate], i)
         s.append(stmp)
 else:
     cfg.lmbda, cfg.alpha, cfg.mio = default_input[0]
 
-    for i in range(1, 6):
+    for i in range(1, cfg.SERV_COUNT+1):
         core1_rate, core2_rate, core3_rate = default_input[i]
         stmp = server([core1_rate, core2_rate, core3_rate], i)
         s.append(stmp)
 
 sch = scheduler(1, s)
-member_count = 2
+member_count = cfg.MEM_COUNT
 #########################################
 
 

@@ -6,8 +6,8 @@ def MY_GEN():
 
 
 DEFAULT_INPUT = True
-TRACE = False
-LOGS_FINAL = True
+TRACE = True
+LOGS_FINAL = False
 LOG = False
 current_time = 0
 MY_GEN = MY_GEN()
@@ -15,4 +15,6 @@ NotValuedYet = -1
 mio = 1
 alpha = 1000
 lmbda = 1
+SERV_COUNT = 1
 INF = 1e10
+MEM_COUNT = 2
