@@ -22,7 +22,7 @@ class member():
 
     def __str__(self):
         return "==> member\n" + \
-            f"\tID: {self._id} | Status: {self.status} | Priority: {self.priority}\n" + \
+            f"\tID: {self._id} | Status: {self.status} | Priority: {self.priority} | Time Limit: {self.time_limit*1000//1/1000}\n" + \
             f"\tTime status: {self.time_status}\n"
 
     @staticmethod
@@ -48,7 +48,6 @@ class member():
 
     @staticmethod
     def get_time_limit():
-        return 1000
         return np.random.exponential(cfg.alpha)
 
     def __init_method(self):
