@@ -1,3 +1,6 @@
+import cfg
+
+
 class WL():
     def __init__(self, priority):
         self.priority = priority
@@ -12,7 +15,12 @@ class WL():
     def leave(self):
         if self.wl.__len__() == 0:
             return None
-        return self.wl.pop()
+        mem = self.wl.pop()
+        if mem.is_dead():
+            if cfg.log:
+                print("Leave")
+            return self.leave()
+        return mem
 
     def is_empty(self):
         return not self.wl

@@ -1,3 +1,5 @@
+import errno
+from black import E
 from wls import WLS
 from core import CORE
 import cfg
@@ -33,39 +35,44 @@ class server():
         idxTimeLs.sort(key=lambda x: x[1])
         return idxTimeLs
 
-    def time_to_idle_0Excluding(self):
+    def time_to_idle_forServedOnly(self):
         idxTimeLs = self.time_to_idle()
-        return list(filter(lambda x: x[1] != 0, idxTimeLs))
+        return list(filter(lambda x: self.cores[x[0]].is_serving(), idxTimeLs))
+
+    def could_run_server(self):
+        mins = self.time_to_idle_forServedOnly()
+        if not self.queue.is_empty() or len(mins) > 0:
+            return True
+        return False
 
     def run_server(self):
         idxTimeLs = self.time_to_idle()
         idx, Time = idxTimeLs[0]
-        if Time > 0:
+        if self.cores[idx].is_serving():
             cfg.current_time += Time
             self.cores[idx].end_work()
-        elif Time == 0:
+        else:
             member = self.queue.leave()
             if member != None:
                 self.cores[idx].start_work(member)
             else:
                 # idle core and is_empty wls
-                try:
-                    idx, Time = self.time_to_idle_0Excluding()[0]
-                    cfg.current_time += Time
-                    self.cores[idx].end_work()
-                except:
-                    if cfg.log:
-                        print("Failed to run Server!!")
-                    pass
+                idx, Time = self.time_to_idle_forServedOnly()[0]
+                cfg.current_time += Time
+                self.cores[idx].end_work()
 
 
 if __name__ == "__main__":
     import random
     s = server([1, 1, 1], 1)
-    members = [member(40, random.choice([1, 2, 2, 2, 2])) for _ in range(5)]
+    members = [member(10, random.choice([1, 2, 2, 2, 2]))
+               for _ in range(5)]
     for mem in members:
         s.arrive(mem)
     while True:
         if cfg.log:
-            print("\n\n")
-        s.run_server()
+            print(f" {cfg.current_time}" + "  ====  ===="*6)
+        if s.could_run_server():
+            s.run_server()
+        else:
+            break

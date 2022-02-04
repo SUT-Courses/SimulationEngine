@@ -44,6 +44,9 @@ class member():
         return True
 
     def begin_queue(self):
+        if cfg.log:
+            print(
+                f"#begin_queue for ID={self._id} ==> status {self.status} | queue at {cfg.current_time}")
         if self.is_dead():
             self.set_status(STATUS.DEAD)
             return False
@@ -75,7 +78,7 @@ class member():
             pass
         return cfg.current_time - self.time_status[self.status]
 
-    def remaining_time_to_work(self):
+    def remaining_time_to_work(self,):
         if cfg.log:
             print(
                 f"Remaining time to work {self._id} ==> {self.time_to_work} - {self.time_from_begin_of_last_status()}")

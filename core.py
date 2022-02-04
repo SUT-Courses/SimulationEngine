@@ -21,15 +21,23 @@ class CORE(object):
     def start_work(self, member: member):
         self.__change_work_status()
         self.current_member = member
-        time_to_work = np.random.exponential(1/self.rate)
+        time_to_work = self.__get_time_to_work()
         if cfg.log:
-            print(f"==> time to work for ID={member._id} : {time_to_work}")
+            print(f"\t==> time to work for ID={member._id} : {time_to_work}")
         b = self.current_member.begin_work(time_to_work)
         if not b:
             self.__change_work_status()
             self.current_member = None
 
+    def __get_time_to_work(self):
+        time_to_work = np.random.exponential(1/self.rate)
+        time_to_work = 0
+        return time_to_work
+
     def end_work(self):
         self.__change_work_status()
         self.current_member.begin_queue()
         self.current_member = None
+
+    def is_serving(self):
+        return self.current_member != None
