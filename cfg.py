@@ -5,7 +5,7 @@ def MY_GEN():
         yield n
 
 
-IN_MEAN = True
+IN_MEAN = False
 DEFAULT_INPUT = False
 TRACE = False
 LOGS_FINAL = True

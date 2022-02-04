@@ -3,76 +3,80 @@ import functools
 import cfg
 
 
+def init():
+    print("\n******************************************************")
+
+
 def get_mean_system_time(mems):
-    print("Mean system time: ")
+    print("Mean system time: ", end="\n")
     ls = list(map(lambda x: x.get_system_time(), mems))
-    print(sum(ls) / len(ls))
+    print("==>", sum(ls) / len(ls))
     pass
 
 
 def get_mean_system_time_per_priority(mems):
-    print("Mean system time per priority: ")
+    print("Mean system time per type: ", end="\n")
     mm1ls = member.get_priority1_ls(mems)
     ls = list(map(lambda x: x.get_system_time(), mm1ls))
-    print("type1", sum(ls) / len(ls))
+    print("==> type1", sum(ls) / len(ls))
 
     mm2ls = member.get_priority2_ls(mems)
     ls = list(map(lambda x: x.get_system_time(), mm2ls))
-    print("type2", sum(ls) / len(ls))
+    print("==> type2", sum(ls) / len(ls))
     pass
 
 
 def get_mean_waiting_time(mems):
-    print("Mean waiting time: ")
+    print("Mean waiting time: ", end="\n")
     ls = list(map(lambda x: x.get_queue_time(), mems))
-    print(sum(ls) / len(ls))
+    print("==>", sum(ls) / len(ls))
     pass
 
 
 def get_mean_waiting_time_per_priority(mems):
-    print("Mean waiting time per priority: ")
+    print("Mean waiting time per type: ", end="\n")
     mm1ls = member.get_priority1_ls(mems)
     ls = list(map(lambda x: x.get_queue_time(), mm1ls))
-    print("type1", sum(ls) / len(ls))
+    print("==> type1", sum(ls) / len(ls))
 
     mm2ls = member.get_priority2_ls(mems)
     ls = list(map(lambda x: x.get_queue_time(), mm2ls))
-    print("type2", sum(ls) / len(ls))
+    print("==> type2", sum(ls) / len(ls))
     pass
 
 
 def get_percent_of_dead_tasks(mems):
-    print("Percent of dead tasks: ")
+    print("Percent of dead tasks: ", end="\n")
     podt = functools.reduce(
         lambda a, b: a + 1 if b.isDead else a, mems, 0) / len(mems)
-    print(podt*100)
+    print("==>", podt*100)
     pass
 
 
 def get_percent_of_dead_tasks_per_priority(mems):
-    print("Percent of dead tasks per priority: ")
+    print("Percent of dead tasks per type: ", end="\n")
 
     mm1ls = member.get_priority1_ls(mems)
     podt = functools.reduce(
         lambda a, b: a + 1 if b.isDead else a, mm1ls, 0) / len(mm1ls)
-    print("type1", podt*100)
+    print("==> type1", podt*100)
     mm2ls = member.get_priority2_ls(mems)
     podt = functools.reduce(
         lambda a, b: a + 1 if b.isDead else a, mm2ls, 0) / len(mm2ls)
-    print("type2", podt*100)
+    print("==> type2", podt*100)
     pass
 
 
 def mean_queue_length_scheduler(mems):
-    print("Mean queue length scheduler: ")
+    print("Mean queue length scheduler: ", end="\n")
     mean_len = functools.reduce(
         lambda a, b: a + b.get_queue1_time(), mems, 0) / cfg.current_time
-    print(mean_len)
+    print("==>", mean_len)
     pass
 
 
 def mean_queue_length_server(mems):
-    print("Mean queue length server: ")
+    print("Mean queue length server: ", end="\n")
     mems1 = list(filter(lambda x: x.service_queue == 1, mems))
     mems2 = list(filter(lambda x: x.service_queue == 2, mems))
     mems3 = list(filter(lambda x: x.service_queue == 3, mems))
@@ -82,5 +86,5 @@ def mean_queue_length_server(mems):
     for i in range(1, len(memsls)+1):
         mean_len = functools.reduce(
             lambda a, b: a + b.get_queue2_time(), memsls[i-1], 0) / cfg.current_time
-        print(f"service{i}:", mean_len)
+        print(f"==> service{i}:", mean_len)
     pass

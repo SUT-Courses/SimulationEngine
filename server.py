@@ -4,7 +4,7 @@ import cfg
 from member import member
 from FS import FREE_STAT
 
-counter = 0
+# counter = 0
 
 
 class server():
@@ -72,9 +72,6 @@ class server():
         return False
 
     def run_server(self):
-        global counter
-        counter += 1
-        print(counter)
         idxTimeLs = self.time_to_idle()
         idx, Time = idxTimeLs[0]
         if self.cores[idx].is_serving():

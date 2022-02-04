@@ -12,9 +12,11 @@ s = []
 default_input = [[cfg.lmbda, cfg.alpha, cfg.mio]]
 default_input.extend(
     [[1/15, 2/15, 1/15] for _ in range(cfg.SERV_COUNT)])
+print("Please type inputs in the same format as explained in the project...")
 
 if not cfg.DEFAULT_INPUT:
-    cfg.lmbda, cfg.alpha, cfg.mio = list(map(float, input().split()))
+    cfg.lmbda, cfg.alpha, cfg.mio = list(
+        map(float, input("Input Rate / Time Limit mean / Schedular Rate\n==> ").split()))
     if cfg.IN_MEAN:
         cfg.lmbda = 1 / cfg.lmbda
         cfg.mio = 1 / cfg.mio
@@ -22,7 +24,7 @@ if not cfg.DEFAULT_INPUT:
     for i in range(1, cfg.SERV_COUNT+1):
         if not cfg.IN_MEAN:
             core1_rate, core2_rate, core3_rate = list(
-                map(float, input().split()))
+                map(float, input(f"Core{i}1 rate / Core{i}2 rate / Core{i}3 rate\n==> ").split()))
         else:
             core1_rate, core2_rate, core3_rate = list(
                 map(lambda x: 1/float(x), input().split()))
@@ -129,11 +131,19 @@ while run():
 alive_only_mmbrls = list(filter(lambda mm: not mm.isDead, mmbrls))
 
 if cfg.LOGS_FINAL:
+    logs.init()
     logs.get_mean_system_time(alive_only_mmbrls)
+    print("")
     logs.get_mean_system_time_per_priority(alive_only_mmbrls)
+    print("")
     logs.get_mean_waiting_time(alive_only_mmbrls)
+    print("")
     logs.get_mean_waiting_time_per_priority(alive_only_mmbrls)
+    print("")
     logs.get_percent_of_dead_tasks(mmbrls)
+    print("")
     logs.get_percent_of_dead_tasks_per_priority(mmbrls)
+    print("")
     logs.mean_queue_length_scheduler(alive_only_mmbrls)
+    print("")
     logs.mean_queue_length_server(alive_only_mmbrls)
