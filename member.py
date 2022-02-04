@@ -1,5 +1,7 @@
+from pandas import interval_range
 import cfg
 import random
+import numpy as np
 
 
 class STATUS:
@@ -27,6 +29,14 @@ class member():
         members = [member(tl, random.choice([1, 2, 2, 2, 2]))
                    for _ in range(n)]
         return members
+
+    @staticmethod
+    def generate_member():
+        tl_mean = cfg.alpha
+        tl = np.random.exponential(tl_mean)
+        interarrival_time = np.random.exponential(cfg.lmbda)
+        mem = member(tl, random.choice([1]+[2]*9))
+        return interarrival_time, mem
 
     def __init_method(self):
         self.time_status = {1: cfg.NotValuedYet, 2: cfg.NotValuedYet, 3: cfg.NotValuedYet,

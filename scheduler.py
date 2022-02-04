@@ -8,9 +8,9 @@ import random
 
 
 class scheduler():
-    def __init__(self, rate, _id, servers: list[server]):
+    def __init__(self, _id, servers: list[server]):
         self._id = _id
-        self.rate = rate
+        self.rate = cfg.mio
         self.__init_method(servers)
 
     def __init_method(self, servers):
@@ -64,7 +64,7 @@ class scheduler():
         self.servers[idx].arrive(self.current_member)
         self.current_member = None
 
-    def is_able_run_scheduler(self):
+    def could_run_scheduler(self):
         return not self.queue.is_empty() or self.is_serving()
 
     def get_queue_length(self):
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     while True:
         if cfg.log:
             print(f"T:{cfg.current_time}" + " ========="*6+"\n")
-        if sch.is_able_run_scheduler():
+        if sch.could_run_scheduler():
 
             sch.run_scheduler()
         else:

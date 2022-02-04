@@ -16,15 +16,15 @@ class server():
         for rate in self.rates:
             self.cores.append(CORE(rate))
 
-    def get_queue_length(self):
-        return self.queue.get_length()
-
     def __get_idxRemainingTime(self, cores, idx):
         if cores[idx].isIdle():
             return (idx, 0)
         tmp_min = cores[idx].current_member.remaining_time_to_work()
         Min = (idx, tmp_min)
         return Min
+
+    def get_queue_length(self):
+        return self.queue.get_length()
 
     def arrive(self, member):
         self.queue.arrive(member)
@@ -70,7 +70,7 @@ def test_server():
         s.arrive(mem)
     while True:
         if cfg.log:
-            print(f" {cfg.current_time}" + "  ====  ===="*6)
+            print(f"T:{cfg.current_time}" + " ========="*6+"\n")
         if s.could_run_server():
             s.run_server()
         else:
