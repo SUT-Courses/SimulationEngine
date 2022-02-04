@@ -4,7 +4,7 @@ from scheduler import scheduler
 from member import member
 
 member_arrival_time = 0
-
+mmbrls = []
 
 s1 = server([1, 1, 1], 1)
 s2 = server([2, 2, 2], 2)
@@ -13,7 +13,7 @@ s4 = server([4, 4, 4], 4)
 s5 = server([5, 5, 5], 5)
 s: list[server] = [s1, s2, s3, s4, s5]
 sch = scheduler(1, s)
-member_count = 10
+member_count = 1
 
 
 def do_arrive_member():
@@ -21,6 +21,7 @@ def do_arrive_member():
     cfg.current_time = member_arrival_time
     member_count -= 1
     inter_arrival_time, mem = member.generate_member()
+    mmbrls.append(mem)
     member_arrival_time = cfg.current_time + inter_arrival_time
     sch.arrive(mem)
 
@@ -88,3 +89,6 @@ def run():
 while run():
     print(f"T:{cfg.current_time}" + " ========="*6+"\n")
     pass
+
+for mmbr in mmbrls:
+    print(mmbr)

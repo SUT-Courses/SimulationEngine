@@ -20,6 +20,11 @@ class member():
         self.time_limit = time_limit
         self.__init_method()
 
+    def __str__(self):
+        return "==> member\n" + \
+            f"\tID: {self._id} | Status: {self.status} | Priority: {self.priority}\n" + \
+            f"\tTime status: {self.time_status}\n"
+
     @staticmethod
     def get_id():
         return next(cfg.MY_GEN)
