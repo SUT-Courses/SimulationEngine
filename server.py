@@ -1,5 +1,3 @@
-import errno
-from black import E
 from wls import WLS
 from core import CORE
 import cfg
@@ -7,9 +5,9 @@ from member import member
 
 
 class server():
-    def __init__(self, rates: list, id: int):
+    def __init__(self, rates: list, _id: int):
         self.rates = rates
-        self.id = id
+        self._id = _id
         self.__init_method()
 
     def __init_method(self):
@@ -62,8 +60,7 @@ class server():
                 self.cores[idx].end_work()
 
 
-if __name__ == "__main__":
-    import random
+def test_server():
     s = server([1, 1, 1], 1)
     members = [member(10, random.choice([1, 2, 2, 2, 2]))
                for _ in range(5)]
@@ -76,3 +73,8 @@ if __name__ == "__main__":
             s.run_server()
         else:
             break
+
+
+if __name__ == "__main__":
+    import random
+    test_server()
