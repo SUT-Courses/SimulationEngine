@@ -45,10 +45,14 @@ class member():
 
     @staticmethod
     def get_interarrival():
-        return np.random.exponential(cfg.lmbda)
+        if cfg.TRACE:
+            return 1
+        return np.random.exponential(1/cfg.lmbda)
 
     @staticmethod
     def get_time_limit():
+        if cfg.TRACE:
+            return cfg.INF
         return np.random.exponential(cfg.alpha)
 
     @staticmethod

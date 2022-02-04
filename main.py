@@ -9,9 +9,9 @@ member_arrival_time = 0
 mmbrls = []
 s: list[server] = []
 
-default_input = [[1, cfg.INF, 500000]]
+default_input = [[1, cfg.INF, 1.2]]
 default_input.extend(
-    [[.001, .001, .001] for _ in range(5)])
+    [[1, 1, 1] for _ in range(5)])
 
 if not cfg.DEFAULT_INPUT:
     cfg.lmbda, cfg.alpha, cfg.mio = list(map(float, input().split()))
@@ -29,7 +29,7 @@ else:
         s.append(stmp)
 
 sch = scheduler(1, s)
-member_count = 1
+member_count = 10
 #########################################
 
 
@@ -106,7 +106,7 @@ def run():
 ################# MAIN  #################
 while run():
     if cfg.LOG:
-        print(f"T:{cfg.current_time}" + " ========="*6+"\n")
+        print("\nT:{:5.5f}".format(cfg.current_time) + "============="*6)
     pass
 
 for mmbr in mmbrls:

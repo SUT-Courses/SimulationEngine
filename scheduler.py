@@ -22,6 +22,8 @@ class scheduler():
 
     def __get_time_to_work(self):
         time_to_work = np.random.exponential(1/self.rate)
+        if cfg.TRACE:
+            return 1
         # time_to_work = 1
         return time_to_work
 
