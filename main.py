@@ -86,4 +86,5 @@ def run():
 
 
 while run():
+    print(f"T:{cfg.current_time}" + " ========="*6+"\n")
     pass

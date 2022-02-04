@@ -32,11 +32,19 @@ class member():
 
     @staticmethod
     def generate_member():
-        tl_mean = cfg.alpha
-        tl = np.random.exponential(tl_mean)
-        interarrival_time = np.random.exponential(cfg.lmbda)
+        tl = member.get_time_limit()
+        interarrival_time = member.get_interarrival()
         mem = member(tl, random.choice([1]+[2]*9))
         return interarrival_time, mem
+
+    @staticmethod
+    def get_interarrival():
+        return np.random.exponential(cfg.lmbda)
+
+    @staticmethod
+    def get_time_limit():
+        return 1000
+        return np.random.exponential(cfg.alpha)
 
     def __init_method(self):
         self.time_status = {1: cfg.NotValuedYet, 2: cfg.NotValuedYet, 3: cfg.NotValuedYet,
