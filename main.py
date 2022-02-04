@@ -111,6 +111,7 @@ while run():
 for mmbr in mmbrls:
     print(mmbr)
 
+
 alive_only_mmbrls = list(filter(lambda mm: not mm.isDead, mmbrls))
 
 logs.get_mean_system_time(alive_only_mmbrls)

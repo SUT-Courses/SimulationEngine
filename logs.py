@@ -1,4 +1,5 @@
 from member import member
+import functools
 
 
 def get_mean_system_time(mems: list[member]):
@@ -41,11 +42,27 @@ def get_mean_waiting_time_per_priority(mems: list[member]):
 
 def get_percent_of_dead_tasks(mems: list[member]):
     print("Percent of dead tasks: ")
+    podt = functools.reduce(
+        lambda a, b: a + 1 if b.isDead else a, mems, 0) / len(mems)
+    print(podt*100)
     pass
 
 
 def get_percent_of_dead_tasks_per_priority(mems: list[member]):
     print("Percent of dead tasks per priority: ")
+
+    podt = functools.reduce(
+        lambda a, b: a + 1 if b.isDead else a, mems, 0) / len(mems)
+    print(podt*100)
+
+    mm1ls: list[member] = member.get_priority1_ls(mems)
+    podt = functools.reduce(
+        lambda a, b: a + 1 if b.isDead else a, mm1ls, 0) / len(mm1ls)
+    print("type1", podt*100)
+    mm2ls: list[member] = member.get_priority1_ls(mems)
+    podt = functools.reduce(
+        lambda a, b: a + 1 if b.isDead else a, mm2ls, 0) / len(mm2ls)
+    print("type1", podt*100)
     pass
 
 
