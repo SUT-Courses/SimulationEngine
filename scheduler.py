@@ -8,7 +8,7 @@ import random
 
 
 class scheduler():
-    def __init__(self, _id, servers: list[server]):
+    def __init__(self, _id, servers):
         self._id = _id
         self.rate = cfg.mio
         self.__init_method(servers)
@@ -16,7 +16,7 @@ class scheduler():
     def __init_method(self, servers):
         self.queue = WLS()
         self.current_member: member = None
-        self.servers: list[server] = []
+        self.servers = []
         for _, srvr in enumerate(servers):
             self.servers.append(srvr)
 

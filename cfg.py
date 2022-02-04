@@ -7,7 +7,7 @@ def MY_GEN():
 
 DEFAULT_INPUT = True
 LOGS_FINAL = False
-LOG = False
+LOG = True
 TRACE = True
 current_time = 0
 MY_GEN = MY_GEN()

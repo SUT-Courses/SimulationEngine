@@ -1,5 +1,3 @@
-from turtle import RawTurtle
-from pandas import interval_range
 import cfg
 import random
 import numpy as np
