@@ -10,6 +10,6 @@ MY_GEN = MY_GEN()
 NotValuedYet = -1
 log = True
 mio = 1
-alpha = 0.001
+alpha = 1000
 lmbda = 1
 INF = 1e10

@@ -13,7 +13,7 @@ s4 = server([4, 4, 4], 4)
 s5 = server([5, 5, 5], 5)
 s: list[server] = [s1, s2, s3, s4, s5]
 sch = scheduler(1, s)
-member_count = 1
+member_count = 10
 
 
 def do_arrive_member():

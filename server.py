@@ -54,11 +54,14 @@ class server():
             self.cores[idx].end_work()
         else:
             member = self.queue.leave()
-            if member != None:
+            if member is not None:
                 self.cores[idx].start_work(member)
             else:
                 # idle core and is_empty wls
-                idx, Time = self.time_to_idle_forServedOnly()[0]
+                ls = self.time_to_idle_forServedOnly()
+                if len(ls) == 0:
+                    return None
+                idx, Time = ls[0]
                 cfg.current_time += Time
                 self.cores[idx].end_work()
 

@@ -59,7 +59,10 @@ class scheduler():
         return return_idx
 
     def end_work(self):
-        self.current_member.begin_queue()
+        res = self.current_member.begin_queue()
+        if not res:
+            self.current_member = None
+            return None
         idx = self.find_appropriate_server_to_push()
         self.servers[idx].arrive(self.current_member)
         self.current_member = None
@@ -76,7 +79,8 @@ class scheduler():
             self.end_work()
         else:
             member = self.queue.leave()
-            self.start_work(member)
+            if member is not None:
+                self.start_work(member)
 
 
 if __name__ == "__main__":

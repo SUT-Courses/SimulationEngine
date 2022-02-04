@@ -22,7 +22,7 @@ class member():
 
     def __str__(self):
         return "==> member\n" + \
-            f"\tID: {self._id} | Status: {self.status} | Priority: {self.priority} | Time Limit: {self.time_limit*1000//1/1000}\n" + \
+            f"\tID: {self._id} | Status: {self.status} | Priority: {self.priority} | Time Limit: {self.time_limit*1000//1/1000} | isDead: {self.isDead}\n" + \
             f"\tTime status: {self.time_status}\n"
 
     @staticmethod
@@ -51,6 +51,7 @@ class member():
         return np.random.exponential(cfg.alpha)
 
     def __init_method(self):
+        self.isDead = False
         self.time_status = {1: cfg.NotValuedYet, 2: cfg.NotValuedYet, 3: cfg.NotValuedYet,
                             4: cfg.NotValuedYet, 5: cfg.NotValuedYet, 6: cfg.NotValuedYet}
         self._id = member.get_id()
@@ -88,7 +89,13 @@ class member():
         self.set_status(STATUS.WAIT_1)
 
     def is_dead(self):
-        return self.status < STATUS.SERVE_2 and cfg.current_time - self.time_status[STATUS.WAIT_1] > self.time_limit
+        if self.time_status[STATUS.WAIT_1] == -1:
+            self.isDead = False
+            return False
+        isDead = self.status < STATUS.SERVE_2 and cfg.current_time - \
+            self.time_status[STATUS.WAIT_1] > self.time_limit
+        self.isDead = isDead
+        return self.isDead
 
     def is_served(self):
         return self.status == STATUS.SERVE_1 or self.status == STATUS.SERVE_2
