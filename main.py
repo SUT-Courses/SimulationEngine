@@ -114,6 +114,7 @@ for mmbr in mmbrls:
 
 alive_only_mmbrls = list(filter(lambda mm: not mm.isDead, mmbrls))
 
+
 logs.get_mean_system_time(alive_only_mmbrls)
 logs.get_mean_system_time_per_priority(alive_only_mmbrls)
 logs.get_mean_waiting_time(alive_only_mmbrls)

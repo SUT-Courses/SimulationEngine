@@ -1,5 +1,6 @@
 from member import member
 import functools
+import cfg
 
 
 def get_mean_system_time(mems: list[member]):
@@ -51,26 +52,35 @@ def get_percent_of_dead_tasks(mems: list[member]):
 def get_percent_of_dead_tasks_per_priority(mems: list[member]):
     print("Percent of dead tasks per priority: ")
 
-    podt = functools.reduce(
-        lambda a, b: a + 1 if b.isDead else a, mems, 0) / len(mems)
-    print(podt*100)
-
     mm1ls: list[member] = member.get_priority1_ls(mems)
     podt = functools.reduce(
         lambda a, b: a + 1 if b.isDead else a, mm1ls, 0) / len(mm1ls)
     print("type1", podt*100)
-    mm2ls: list[member] = member.get_priority1_ls(mems)
+    mm2ls: list[member] = member.get_priority2_ls(mems)
     podt = functools.reduce(
         lambda a, b: a + 1 if b.isDead else a, mm2ls, 0) / len(mm2ls)
-    print("type1", podt*100)
+    print("type2", podt*100)
     pass
 
 
 def mean_queue_length_scheduler(mems: list[member]):
     print("Mean queue length scheduler: ")
+    mean_len = functools.reduce(
+        lambda a, b: a + b.get_queue1_time(), mems, 0) / cfg.current_time
+    print(mean_len)
     pass
 
 
 def mean_queue_length_server(mems: list[member]):
     print("Mean queue length server: ")
+    mems1 = list(filter(lambda x: x.service_queue == 1, mems))
+    mems2 = list(filter(lambda x: x.service_queue == 2, mems))
+    mems3 = list(filter(lambda x: x.service_queue == 3, mems))
+    mems4 = list(filter(lambda x: x.service_queue == 4, mems))
+    mems5 = list(filter(lambda x: x.service_queue == 5, mems))
+    memsls = [mems1, mems2, mems3, mems4, mems5]
+    for i in range(1, len(memsls)+1):
+        mean_len = functools.reduce(
+            lambda a, b: a + b.get_queue2_time(), memsls[i-1], 0) / cfg.current_time
+        print(f"service{i}:", mean_len)
     pass
