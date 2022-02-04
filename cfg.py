@@ -6,9 +6,9 @@ def MY_GEN():
 
 
 DEFAULT_INPUT = True
+TRACE = True
 LOGS_FINAL = False
 LOG = True
-TRACE = True
 current_time = 0
 MY_GEN = MY_GEN()
 NotValuedYet = -1

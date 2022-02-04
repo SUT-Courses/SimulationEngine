@@ -13,10 +13,10 @@ class CORE(object):
         self.current_member: member = None
 
     def __change_work_status(self):
-        self.isBusy = ~self.isBusy
+        self.isBusy = not(self.isBusy)
 
     def isIdle(self,):
-        return ~self.isBusy
+        return not(self.isBusy)
 
     def start_work(self, member: member):
         self.__change_work_status()

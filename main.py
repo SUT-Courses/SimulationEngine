@@ -29,7 +29,7 @@ else:
         s.append(stmp)
 
 sch = scheduler(1, s)
-member_count = 10
+member_count = 2
 #########################################
 
 
@@ -79,9 +79,9 @@ def run():
     srvr_arrival = get_server_to_run()
     schd_arrival = get_scheduler_to_run()
 
-    if cfg.LOG:
-        print("mmbr_arrival", mmbr_arrival, "srvr_arrival",
-              srvr_arrival, "schd_arrival", schd_arrival)
+    # if cfg.LOG:
+    #     print("mmbr_arrival", mmbr_arrival, "srvr_arrival",
+    #           srvr_arrival, "schd_arrival", schd_arrival)
 
     if mmbr_arrival[0] is not None and mmbr_arrival[1] < mt:
         mt = mmbr_arrival[1]
