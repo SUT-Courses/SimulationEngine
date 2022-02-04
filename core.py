@@ -22,7 +22,7 @@ class CORE(object):
         self.__change_work_status()
         self.current_member = member
         time_to_work = self.__get_time_to_work()
-        if cfg.log:
+        if cfg.LOG:
             print(
                 f"\t==> time to work [at core] for ID={member._id} : {time_to_work}")
         b = self.current_member.begin_work(time_to_work)

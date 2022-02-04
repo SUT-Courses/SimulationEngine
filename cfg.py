@@ -6,10 +6,11 @@ def MY_GEN():
 
 
 DEFAULT_INPUT = True
+LOGS_FINAL = False
+LOG = False
 current_time = 0
 MY_GEN = MY_GEN()
 NotValuedYet = -1
-log = False
 mio = 1
 alpha = 1000
 lmbda = 1

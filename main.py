@@ -9,8 +9,9 @@ member_arrival_time = 0
 mmbrls = []
 s: list[server] = []
 
-default_input = [[1, 1000, 1], [1, 1, 1], [
-    2, 2, 2], [3, 3, 3], [4, 4, 4], [5, 5, 5]]
+default_input = [[1, cfg.INF, 500000]]
+default_input.extend(
+    [[.001, .001, .001] for _ in range(5)])
 
 if not cfg.DEFAULT_INPUT:
     cfg.lmbda, cfg.alpha, cfg.mio = list(map(float, input().split()))
@@ -28,7 +29,7 @@ else:
         s.append(stmp)
 
 sch = scheduler(1, s)
-member_count = 1e3
+member_count = 1
 #########################################
 
 
@@ -104,7 +105,7 @@ def run():
 
 ################# MAIN  #################
 while run():
-    if cfg.log:
+    if cfg.LOG:
         print(f"T:{cfg.current_time}" + " ========="*6+"\n")
     pass
 
@@ -114,12 +115,12 @@ for mmbr in mmbrls:
 
 alive_only_mmbrls = list(filter(lambda mm: not mm.isDead, mmbrls))
 
-
-logs.get_mean_system_time(alive_only_mmbrls)
-logs.get_mean_system_time_per_priority(alive_only_mmbrls)
-logs.get_mean_waiting_time(alive_only_mmbrls)
-logs.get_mean_waiting_time_per_priority(alive_only_mmbrls)
-logs.get_percent_of_dead_tasks(mmbrls)
-logs.get_percent_of_dead_tasks_per_priority(mmbrls)
-logs.mean_queue_length_scheduler(alive_only_mmbrls)
-logs.mean_queue_length_server(alive_only_mmbrls)
+if cfg.LOGS_FINAL:
+    logs.get_mean_system_time(alive_only_mmbrls)
+    logs.get_mean_system_time_per_priority(alive_only_mmbrls)
+    logs.get_mean_waiting_time(alive_only_mmbrls)
+    logs.get_mean_waiting_time_per_priority(alive_only_mmbrls)
+    logs.get_percent_of_dead_tasks(mmbrls)
+    logs.get_percent_of_dead_tasks_per_priority(mmbrls)
+    logs.mean_queue_length_scheduler(alive_only_mmbrls)
+    logs.mean_queue_length_server(alive_only_mmbrls)

@@ -17,7 +17,7 @@ class WL():
             return None
         mem = self.wl.pop()
         if mem.is_dead():
-            if cfg.log:
+            if cfg.LOG:
                 print(
                     f"(#leave for ID={mem._id} ==> status {mem.status} | queue at {cfg.current_time})")
             return self.leave()

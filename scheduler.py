@@ -39,7 +39,7 @@ class scheduler():
     def start_work(self, member):
         self.current_member = member
         time_to_work = self.__get_time_to_work()
-        if cfg.log:
+        if cfg.LOG:
             print(
                 f"\t==> time to work [at scheduler] for ID={member._id} : {time_to_work}")
         b = self.current_member.begin_work(time_to_work)
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     for mem in mems:
         sch.arrive(mem)
     while True:
-        if cfg.log:
+        if cfg.LOG:
             print(f"T:{cfg.current_time}" + " ========="*6+"\n")
         if sch.could_run_scheduler():
 

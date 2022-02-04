@@ -73,7 +73,7 @@ def test_server():
     for mem in mems:
         s.arrive(mem)
     while True:
-        if cfg.log:
+        if cfg.LOG:
             print(f"T:{cfg.current_time}" + " ========="*6+"\n")
         if s.could_run_server():
             s.run_server()
