@@ -1,3 +1,4 @@
+from turtle import RawTurtle
 from pandas import interval_range
 import cfg
 import random
@@ -49,6 +50,14 @@ class member():
     @staticmethod
     def get_time_limit():
         return np.random.exponential(cfg.alpha)
+
+    @staticmethod
+    def get_priority1_ls(mmls):
+        return list(filter(lambda x: x.priority == 1, mmls))
+
+    @staticmethod
+    def get_priority2_ls(mmls):
+        return list(filter(lambda x: x.priority == 2, mmls))
 
     def __init_method(self):
         self.service_queue = None
@@ -120,6 +129,21 @@ class member():
             print(
                 f"Remaining time to work {self._id} ==> {self.time_to_work} - {self.time_from_begin_of_last_status()}")
         return self.time_to_work - self.time_from_begin_of_last_status()
+
+    def get_queue1_time(self):
+        return self.time_status[STATUS.SERVE_1] - self.time_status[STATUS.WAIT_1]
+
+    def get_queue2_time(self):
+        return self.time_status[STATUS.SERVE_2] - self.time_status[STATUS.WAIT_2]
+
+    def get_queue2_id(self):
+        return self.service_queue
+
+    def get_system_time(self):
+        return self.time_status[STATUS.END] - self.time_status[STATUS.WAIT_1]
+
+    def get_queue_time(self):
+        return self.get_queue1_time() + self.get_queue2_time()
 
 
 def __test_member(a):

@@ -2,6 +2,7 @@ import cfg
 from server import server
 from scheduler import scheduler
 from member import member
+import logs
 
 ################# initialization #################
 member_arrival_time = 0
@@ -109,3 +110,14 @@ while run():
 
 for mmbr in mmbrls:
     print(mmbr)
+
+alive_only_mmbrls = list(filter(lambda mm: not mm.isDead, mmbrls))
+
+logs.get_mean_system_time(alive_only_mmbrls)
+logs.get_mean_system_time_per_priority(alive_only_mmbrls)
+logs.get_mean_waiting_time(alive_only_mmbrls)
+logs.get_mean_waiting_time_per_priority(alive_only_mmbrls)
+logs.get_percent_of_dead_tasks(mmbrls)
+logs.get_percent_of_dead_tasks_per_priority(mmbrls)
+logs.mean_queue_length_scheduler(alive_only_mmbrls)
+logs.mean_queue_length_server(alive_only_mmbrls)
