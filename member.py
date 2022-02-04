@@ -78,9 +78,6 @@ class member():
         if self.is_dead():
             self.set_status(STATUS.DEAD)
             return False
-
-        # if cfg.log:
-        #     print(f"begin_work ==> {self.status}")
         self.set_status(self.status + 1)
         self.time_to_work = time_to_work
         return True

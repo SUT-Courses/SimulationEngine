@@ -4,6 +4,8 @@ import cfg
 from member import member
 from FS import FREE_STAT
 
+counter = 0
+
 
 class server():
     def __init__(self, rates: list, _id: int):
@@ -18,8 +20,8 @@ class server():
             self.cores.append(CORE(rate))
 
     def __get_idxRemainingTime(self, cores, idx, freedom_status):
-        if cores[idx].isIdle() and freedom_status == FREE_STAT.QUEUE_WORKING or\
-                freedom_status == FREE_STAT.QUEUE_AND_CORE_WORKING:
+        if cores[idx].isIdle() and (freedom_status == FREE_STAT.QUEUE_WORKING or
+                                    freedom_status == FREE_STAT.QUEUE_AND_CORE_WORKING):
             return (idx, 0)
         elif cores[idx].isIdle():
             return (idx, cfg.INF)
@@ -70,6 +72,9 @@ class server():
         return False
 
     def run_server(self):
+        global counter
+        counter += 1
+        print(counter)
         idxTimeLs = self.time_to_idle()
         idx, Time = idxTimeLs[0]
         if self.cores[idx].is_serving():
