@@ -27,7 +27,7 @@ else:
         s.append(stmp)
 
 sch = scheduler(1, s)
-member_count = 1e6
+member_count = 1e3
 #########################################
 
 

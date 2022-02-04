@@ -22,7 +22,7 @@ class member():
 
     def __str__(self):
         return "==> member\n" + \
-            f"\tID: {self._id} | Status: {self.status} | Priority: {self.priority} | Time Limit: {self.time_limit*1000//1/1000} | isDead: {self.isDead}\n" + \
+            f"\tID: {self._id} | Status: {self.status} | Priority: {self.priority} | Time Limit: {self.time_limit*1000//1/1000} | isDead: {self.isDead} | Service Queue: {self.service_queue} \n" + \
             f"\tTime status: {self.time_status}\n"
 
     @staticmethod
@@ -51,6 +51,7 @@ class member():
         return np.random.exponential(cfg.alpha)
 
     def __init_method(self):
+        self.service_queue = None
         self.isDead = False
         self.time_status = {1: cfg.NotValuedYet, 2: cfg.NotValuedYet, 3: cfg.NotValuedYet,
                             4: cfg.NotValuedYet, 5: cfg.NotValuedYet, 6: cfg.NotValuedYet}

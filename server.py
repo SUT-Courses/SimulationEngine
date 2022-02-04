@@ -27,6 +27,7 @@ class server():
         return self.queue.get_length()
 
     def arrive(self, member):
+        member.service_queue = self._id
         self.queue.arrive(member)
 
     def time_to_idle(self):
